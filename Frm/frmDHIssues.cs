@@ -456,8 +456,7 @@ namespace DHIssues.Frm
             if (this.checkBox_thuoc.Checked == true )
             {
                 if (this.checkBox_benhnhan.Checked == true & this.textEdit_ngaykcb.Text.Trim() != "")
-                {
-                    
+                {                    
                     string kh = "";
                     if (this.textEdit_Maba.Text.Trim() != "")
                     {
@@ -481,15 +480,11 @@ namespace DHIssues.Frm
                 }
                 else
                 {
-
-                    this.checkBox_CLS.Checked = false;
-                                  
+                    this.checkBox_CLS.Checked = false;                                  
                 }
-
             }
             else
-            {               
-              
+            {              
                 this.groupControl_thuoc.Size = new Size(787, 120);
                 this.gridControl_thuoc.Visible = false;
                 SetTextThuoc("","","","","","","");
@@ -510,27 +505,34 @@ namespace DHIssues.Frm
                     sqlThuoc += " FROM current.chungtu ct LEFT JOIN";
                     sqlThuoc += " current.pshdxn xn ON xn.sohd = ct.sohd LEFT JOIN";
                     sqlThuoc += " current.dmthuoc dm ON dm.mahh = xn.mahh";
-                    sqlThuoc += " WHERE ct.makh = '" + makh + "' AND ct.mabn = '" + mabn + "'";
+                    sqlThuoc += " WHERE ";
+                    if (makh != "")
+                    {
+                        sqlThuoc += " ct.makh = '" + makh + "'"; 
+                    }
+
+                    if (mabn != "")
+                    {
+                        if (makh != "")
+                        {
+                            sqlThuoc += " AND";
+                        }
+                        sqlThuoc += " ct.mabn = '" + mabn + "'";
+                    }
+
+                    if (sohd != "")
+                    {
+                        if (makh != "" | mabn != "")
+                        {
+                            sqlThuoc += " AND";
+                        }
+                        sqlThuoc += " ct.sohd = '" + sohd + "'";
+                    }
+                    
                     sqlThuoc += " AND xn.xoa = 0";
                     sqlThuoc += " AND ct.xoa = 0";
                     sqlThuoc += " ORDER BY ct.ngayhd, xn.stt ";
                 }
-
-                //lấy theo chứng từ
-                if (sohd != "")
-                {
-                    sqlThuoc = "SELECT ct.mabn, ct.makh, ct.sohd, to_char(ct.ngayhd,'DD/MM/YYYY') AS ngayhd,";
-                    sqlThuoc += " xn.mahh, dm.tenhh, dm.dvt, xn.soluong, ct.loaixn, ct.khochan, ct.khole, ct.noitru,";
-                    sqlThuoc += " ct.madv,ct.maphong, COALESCE(ct.maba,'') AS maba, ct.bant, ct.thangkt, ct.namkt";
-                    sqlThuoc += " FROM current.chungtu ct LEFT JOIN";
-                    sqlThuoc += " current.pshdxn xn ON xn.sohd = ct.sohd LEFT JOIN";
-                    sqlThuoc += " current.dmthuoc dm ON dm.mahh = xn.mahh";
-                    sqlThuoc += " WHERE ct.sohd = '" + sohd + "'";
-                    sqlThuoc += " AND xn.xoa = 0";
-                    sqlThuoc += " AND ct.xoa = 0";
-                    sqlThuoc += " ORDER BY ct.ngayhd, xn.stt ";
-                }
-
                 
                 dt = new DataTable("THUOC");
                 dt = access.GetDataTable(sqlThuoc);
@@ -636,12 +638,7 @@ namespace DHIssues.Frm
                         #endregion
 
                         SetTextThuoc(access.Khochan, access.Khole, access.Mahh, access.Sohd, access.Ngayhd, access.T_thangkt, access.T_namkt);
-                        if (access.GetRowCellValue(this.gridView_thuoc, "mabn") != null & access.GetRowCellValue(this.gridView_thuoc, "makh") != null & access.GetRowCellValue(this.gridView_thuoc, "noitru") != null)
-                        {
-                            
-                        }
                     }
-
                 }
             }catch(Exception ex)
             {
@@ -675,7 +672,7 @@ namespace DHIssues.Frm
                        
                         if (access.GetRowCellValue(this.gridView_thuoc, "mabn") != null)
                         {
-                            this.checkBox_benhnhan.Checked = true;
+                            
                             this.checkBox_thuoc.Checked = true;
                             if (access.GetRowCellValue(this.gridView_thuoc, "noitru") != null)
                             {
@@ -697,7 +694,6 @@ namespace DHIssues.Frm
                                 }
                             }
                         }
-
                     }
                 }catch(Exception ex)
                 {
