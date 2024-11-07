@@ -470,6 +470,10 @@ namespace DHIssues.Frm
                             kh = this.textEdit_Maba.Text.Trim();
                         }
                     }
+                    else
+                    {
+                        kh = this.textEdit_Makb.Text.Trim();
+                    }
                     
                     LoadThuoc(this.textEdit_Mabn.Text.Trim(),kh,"");
                     this.groupControl_thuoc.Size = new Size(787, 195);
@@ -668,9 +672,11 @@ namespace DHIssues.Frm
                         this.groupControl_thuoc.Size = new Size(787, 195);
                         this.gridControl_thuoc.Visible = true;
                         LoadThuoc("", "", this.textEdit_sohd.Text.Trim());
-
+                       
                         if (access.GetRowCellValue(this.gridView_thuoc, "mabn") != null)
                         {
+                            this.checkBox_benhnhan.Checked = true;
+                            this.checkBox_thuoc.Checked = true;
                             if (access.GetRowCellValue(this.gridView_thuoc, "noitru") != null)
                             {
                                 if (access.GetRowCellValue(this.gridView_thuoc, "noitru").ToString() == "1")
@@ -681,7 +687,7 @@ namespace DHIssues.Frm
                                 {
                                     if (access.GetRowCellValue(this.gridView_thuoc, "maba").ToString() != "" & access.GetRowCellValue(this.gridView_thuoc, "bant").ToString() == "0")
                                     {
-                                        //MessageBox.Show(access.GetRowCellValue(this.gridView_thuoc, "maba").ToString());
+                                        
                                         LoadBN("", access.GetRowCellValue(this.gridView_thuoc, "mabn").ToString(), access.GetRowCellValue(this.gridView_thuoc, "makh").ToString(), "");
                                     }
                                     else
