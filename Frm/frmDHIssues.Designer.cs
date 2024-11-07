@@ -275,7 +275,9 @@
             // 
             this.textEdit_Mabn.Location = new System.Drawing.Point(245, 33);
             this.textEdit_Mabn.Name = "textEdit_Mabn";
+            this.textEdit_Mabn.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.textEdit_Mabn.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEdit_Mabn.Properties.Appearance.Options.UseBackColor = true;
             this.textEdit_Mabn.Properties.Appearance.Options.UseFont = true;
             this.textEdit_Mabn.Properties.AppearanceReadOnly.BackColor = System.Drawing.Color.White;
             this.textEdit_Mabn.Properties.AppearanceReadOnly.Options.UseBackColor = true;
@@ -284,6 +286,7 @@
             this.textEdit_Mabn.Properties.AppearanceReadOnly.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Top;
             this.textEdit_Mabn.Size = new System.Drawing.Size(100, 22);
             this.textEdit_Mabn.TabIndex = 0;
+            this.textEdit_Mabn.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textEdit_Mabn_KeyDown);
             // 
             // labelControl6
             // 
@@ -299,7 +302,9 @@
             // 
             this.textEdit_Maba.Location = new System.Drawing.Point(414, 33);
             this.textEdit_Maba.Name = "textEdit_Maba";
+            this.textEdit_Maba.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.textEdit_Maba.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textEdit_Maba.Properties.Appearance.Options.UseBackColor = true;
             this.textEdit_Maba.Properties.Appearance.Options.UseFont = true;
             this.textEdit_Maba.Properties.AppearanceReadOnly.BackColor = System.Drawing.Color.White;
             this.textEdit_Maba.Properties.AppearanceReadOnly.Options.UseBackColor = true;
@@ -308,6 +313,7 @@
             this.textEdit_Maba.Properties.AppearanceReadOnly.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Top;
             this.textEdit_Maba.Size = new System.Drawing.Size(100, 22);
             this.textEdit_Maba.TabIndex = 0;
+            this.textEdit_Maba.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textEdit_Maba_KeyDown);
             // 
             // labelControl5
             // 

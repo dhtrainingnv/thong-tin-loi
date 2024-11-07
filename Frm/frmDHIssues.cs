@@ -804,5 +804,27 @@ namespace DHIssues.Frm
                 }
             }
         }
+
+        private void textEdit_Mabn_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (this.textEdit_Mabn.Text != "")
+                {
+                    LoadBN("", this.textEdit_Mabn.Text.Trim(), "", "");
+                }
+            }
+        }
+
+        private void textEdit_Maba_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (this.textEdit_Maba.Text != "")
+                {
+                    LoadBN("", "", this.textEdit_Maba.Text.Trim(), "");
+                }
+            }
+        }
     }
 }
