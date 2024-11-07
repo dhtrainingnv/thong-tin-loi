@@ -42,9 +42,6 @@
     <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraPrinting.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="Excel">
-      <HintPath>..\..\..\..\SOURCE\SOURCE\E_OLD\C# Project\Search\DLL IMPORT\Excel.dll</HintPath>
-    </Reference>
     <Reference Include="Janus.Windows.Common.v3, Version=3.5.0.0, Culture=neutral, PublicKeyToken=21d5517571b185bf, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\SOURCE\SOURCE\E_OLD\C# Project\Search\DLL IMPORT\Janus.Windows.Common.v3.dll</HintPath>
@@ -57,29 +54,19 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\SOURCE\SOURCE\E_OLD\C# Project\Search\DLL IMPORT\Janus.Windows.UI.v3.dll</HintPath>
     </Reference>
-    <Reference Include="LibraryApp">
-      <HintPath>..\..\..\..\SOURCE\SOURCE\E_OLD\C# Project\Search\DLL IMPORT\LibraryApp.dll</HintPath>
+    <Reference Include="LibraryApp, Version=4.24.525.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\dhlibraries\LibraryApp.dll</HintPath>
     </Reference>
-    <Reference Include="MessageBoxAdv">
-      <HintPath>..\..\..\..\SOURCE\SOURCE\E_OLD\C# Project\Search\DLL IMPORT\MessageBoxAdv.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Security">
-      <HintPath>..\..\..\..\SOURCE\SOURCE\E_OLD\C# Project\Search\DLL IMPORT\Mono.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Npgsql">
+    <Reference Include="Npgsql, Version=2.2.3.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\SOURCE\SOURCE\E_OLD\C# Project\Search\DLL IMPORT\Npgsql.dll</HintPath>
     </Reference>
-    <Reference Include="OTH">
-      <HintPath>..\..\..\..\SOURCE\SOURCE\E_OLD\C# Project\Search\DLL IMPORT\OTH.dll</HintPath>
-    </Reference>
     <Reference Include="OTH.Adapter">
-      <HintPath>..\..\..\..\SOURCE\SOURCE\E_OLD\C# Project\Search\DLL IMPORT\OTH.Adapter.dll</HintPath>
+      <HintPath>..\..\dhlibraries\OTH.Adapter.dll</HintPath>
     </Reference>
     <Reference Include="OTH.Common">
-      <HintPath>..\..\..\..\SOURCE\SOURCE\E_OLD\C# Project\Search\DLL IMPORT\OTH.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="OTH.Entity">
-      <HintPath>..\..\..\..\SOURCE\SOURCE\E_OLD\C# Project\Search\DLL IMPORT\OTH.Entity.dll</HintPath>
+      <HintPath>..\..\dhlibraries\OTH.Common.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -87,7 +74,6 @@
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />

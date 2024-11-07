@@ -46,36 +46,57 @@ namespace DHIssues.Frm
             {                
                 if (this.textEdit_Makb.Text != "")
                 {
-                    LoadBN(this.textEdit_Makb.Text.Trim(),"","");
+                    LoadBN(this.textEdit_Makb.Text.Trim(),"","","");
                 }
             }
         }
 
-        private void LoadBN(string makb, string mabn, string maba)
+        private void LoadBN(string makb, string mabn, string maba, string maphong)
         {
             try
             {
-
-
                 string sql = "SELECT dk.mabn, dk.makb, COALESCE(dk.maba,'') AS maba, ";
                 sql += " to_char(kb.ngaykcb, 'DD/MM/YYYY') AS ngaykcb, bn.holot || ' ' || bn.ten AS hoten, ";
                 sql += "  CASE WHEN COALESCE(dk.maba, '') = '' THEN kb.madv ";
                 sql += "  WHEN COALESCE(dk.maba) != '' AND dk.bant = 1 THEN kb.madv ELSE nt.madv END AS madv, ";
-                sql += "  CASE WHEN COALESCE(dk.maba) != '' AND dk.bant = 0 THEN '' ELSE kb.maphong END AS maphong, dk.thangkt, dk.namkt,dk.bant ";
+                sql += "  CASE WHEN COALESCE(dk.maba) != '' AND dk.bant = 0 THEN COALESCE(nt.maphong,'') ELSE kb.maphong END AS maphong, dk.thangkt, dk.namkt,dk.bant ";
                 sql += "  FROM current.psdangky dk LEFT JOIN ";
                 sql += "  current.khambenh kb ON kb.mabn = dk.mabn AND kb.makb = dk.makb LEFT JOIN ";
                 sql += "  current.dmbenhnhan bn ON bn.mabn = dk.mabn LEFT JOIN ";
                 sql += "   current.bnnoitru nt ON nt.mabn = dk.mabn AND nt.makb = dk.makb AND nt.maba = COALESCE(dk.maba) ";
-                sql += "  WHERE dk.makb = '" + makb + "'";
+                sql += "  WHERE ";
+
+                if (makb != "")
+                {
+                    sql += " dk.makb = '" + makb + "'";
+                }
 
                 if (mabn != "")
                 {
-                    sql += "  AND dk.mabn = '" + mabn + "'";
+                    if (makb != "")
+                    {
+                        sql += "  AND";
+                    }
+
+                    sql += "  dk.mabn = '" + mabn + "'";
                 }
 
                 if (maba != "")
                 {
-                    sql += "  AND COALESCE(dk.maba,'') = '" + maba + "'";
+                    if (makb != "" | mabn != "")
+                    {
+                        sql += "  AND";
+                    }
+                    sql += "  COALESCE(dk.maba,'') = '" + maba + "'";
+                }
+
+                if (maphong != "")
+                {
+                    if (makb != "" | mabn != "" | maba != "")
+                    {
+                        sql += "  AND";
+                    }
+                    sql += "  COALESCE(kb.maphong,'') = '" + maphong + "'";
                 }
 
 
@@ -88,6 +109,7 @@ namespace DHIssues.Frm
                     this.gridControl_khambenh.Visible = false;
 
                     SetTextBN(dt.Rows[0]["mabn"].ToString().Trim(),
+                        dt.Rows[0]["makb"].ToString().Trim(),
                         dt.Rows[0]["maba"].ToString().Trim(),
                         dt.Rows[0]["ngaykcb"].ToString().Trim(),
                         dt.Rows[0]["hoten"].ToString().Trim(),
@@ -96,25 +118,17 @@ namespace DHIssues.Frm
                         dt.Rows[0]["thangkt"].ToString().Trim(),
                         dt.Rows[0]["namkt"].ToString().Trim(),
                         dt.Rows[0]["bant"].ToString().Trim());
-
-
                 }
                 else if (dt.Rows.Count > 1)
                 {
-                    this.groupControl_khambenh.Size = new Size(787, 195);
-                    //this.gridControl_khambenh.DataSource = dt;
+                    this.groupControl_khambenh.Size = new Size(787, 195);                    
                     this.gridControl_khambenh.Visible = true;
-
-                    //if (this.gridView_khambenh.RowCount > 0)
-                    //{
-                    //    this.gridView_khambenh.FocusedRowHandle = 0;
-                    //}
                 }
                 else
                 {
                     this.groupControl_khambenh.Size = new Size(787, 115);
                     this.gridControl_khambenh.Visible = false;
-                    SetTextBN("", "", "", "", "", "", "", "", "");
+                    SetTextBN("","", "", "", "", "", "", "", "", "");
                 }
 
                 this.gridControl_khambenh.DataSource = dt;
@@ -129,9 +143,10 @@ namespace DHIssues.Frm
             }
         }
 
-        private void SetTextBN(string mabn, string maba, string ngaykcb, string hoten, string madv, string maphong, string thangkt, string namkt,string bant)
+        private void SetTextBN(string mabn,string makb, string maba, string ngaykcb, string hoten, string madv, string maphong, string thangkt, string namkt,string bant)
         {
             this.textEdit_Mabn.Text = mabn;
+            this.textEdit_Makb.Text = makb;
             this.textEdit_Maba.Text = maba;
             this.textEdit_hoten.Text = hoten;
             this.textEdit_ngaykcb.Text = ngaykcb;
@@ -170,6 +185,15 @@ namespace DHIssues.Frm
                 else
                 {
                     access.Mabn = "";
+                }
+
+                if (access.GetRowCellValue(this.gridView_khambenh, "makb") != null)
+                {
+                    access.Makb = access.GetRowCellValue(this.gridView_khambenh, "makb").ToString().Trim();
+                }
+                else
+                {
+                    access.Makb = "";
                 }
 
                 if (access.GetRowCellValue(this.gridView_khambenh, "maba") != null)
@@ -241,7 +265,7 @@ namespace DHIssues.Frm
                     access.Bant = "";
                 }
                 #endregion
-                SetTextBN(access.Mabn, access.Maba, access.Ngaykcb, access.Hoten, access.Madv, access.Maphong, access.Thangkt, access.Namkt, access.Bant);
+                SetTextBN(access.Mabn,access.Makb, access.Maba, access.Ngaykcb, access.Hoten, access.Madv, access.Maphong, access.Thangkt, access.Namkt, access.Bant);
             }
         }
 
@@ -419,11 +443,10 @@ namespace DHIssues.Frm
 
             this.richTextBox_issuestring.ResetText();
 
-            string result = access.StringIssues_BN(access.Mabn, access.Makb, access.Maba,access.Ngaykcb, access.Maphong, access.Madv, access.Thangkt, access.Namkt);
-            result += access.StringIssues_Thuoc(access.Khochan, access.Khole, access.Mahh, access.Sohd, access.Ngayhd, access.T_thangkt, access.T_namkt);
-            result += access.StringIssues_CLS(access.Macls, access.Phieuyc);
-
-            result += access.StringIssues_Khac(access.Khac);
+            string result = access.StringIssues_BN();
+            result += access.StringIssues_Thuoc();
+            result += access.StringIssues_CLS();
+            result += access.StringIssues_Khac();
 
             this.richTextBox_issuestring.Text = result;
         }
@@ -471,66 +494,68 @@ namespace DHIssues.Frm
 
         private void LoadThuoc(string mabn, string makh, string sohd)
         {
-            
-            string sqlThuoc = "";
-            //lấy thuốc theo đợt khám
-            if (this.checkBox_benhnhan.Checked == true)
-            {                
-                sqlThuoc = "SELECT ct.mabn,ct.makh, ct.sohd, to_char(ct.ngayhd,'DD/MM/YYYY') AS ngayhd, ct.thangkt, ct.namkt,";
-                sqlThuoc += " xn.mahh, dm.tenhh, dm.dvt, xn.soluong, ct.loaixn,ct.khochan, ct.khole,ct.noitru";
-                sqlThuoc += " FROM current.chungtu ct LEFT JOIN";
-                sqlThuoc += " current.pshdxn xn ON xn.sohd = ct.sohd LEFT JOIN";
-                sqlThuoc += " current.dmthuoc dm ON dm.mahh = xn.mahh";
-                sqlThuoc += " WHERE ct.makh = '" + makh + "' AND ct.mabn = '" + mabn + "'";
-                sqlThuoc += " AND xn.xoa = 0";
-                sqlThuoc += " AND ct.xoa = 0";
-                sqlThuoc += " ORDER BY ct.ngayhd, xn.stt ";
-            }
-
-            //lấy theo chứng từ
-            if (sohd != "")
+            try
             {
-                sqlThuoc = "SELECT ct.mabn,ct.makh, ct.sohd, to_char(ct.ngayhd,'DD/MM/YYYY') AS ngayhd, ct.thangkt, ct.namkt,";
-                sqlThuoc += " xn.mahh, dm.tenhh, dm.dvt, xn.soluong, ct.loaixn, ct.khochan, ct.khole, ct.noitru";
-                sqlThuoc += " FROM current.chungtu ct LEFT JOIN";
-                sqlThuoc += " current.pshdxn xn ON xn.sohd = ct.sohd LEFT JOIN";
-                sqlThuoc += " current.dmthuoc dm ON dm.mahh = xn.mahh";
-                sqlThuoc += " WHERE ct.sohd = '" + sohd + "'";
-                sqlThuoc += " AND xn.xoa = 0";
-                sqlThuoc += " AND ct.xoa = 0";
-                sqlThuoc += " ORDER BY ct.ngayhd, xn.stt ";
-            }
+                string sqlThuoc = "";
+                //lấy thuốc theo đợt khám
+                if (this.checkBox_benhnhan.Checked == true)
+                {
+                    sqlThuoc = "SELECT ct.mabn, ct.makh, ct.sohd, to_char(ct.ngayhd,'DD/MM/YYYY') AS ngayhd, ";
+                    sqlThuoc += " xn.mahh, dm.tenhh, dm.dvt, xn.soluong, ct.loaixn, ct.khochan, ct.khole, ct.noitru,";
+                    sqlThuoc += " ct.madv,ct.maphong, COALESCE(ct.maba,'') AS maba, ct.bant, ct.thangkt, ct.namkt";
+                    sqlThuoc += " FROM current.chungtu ct LEFT JOIN";
+                    sqlThuoc += " current.pshdxn xn ON xn.sohd = ct.sohd LEFT JOIN";
+                    sqlThuoc += " current.dmthuoc dm ON dm.mahh = xn.mahh";
+                    sqlThuoc += " WHERE ct.makh = '" + makh + "' AND ct.mabn = '" + mabn + "'";
+                    sqlThuoc += " AND xn.xoa = 0";
+                    sqlThuoc += " AND ct.xoa = 0";
+                    sqlThuoc += " ORDER BY ct.ngayhd, xn.stt ";
+                }
 
-            //lấy theo tồn kho
-            if (mabn == "" & makh == "" & sohd == "")
-            {
+                //lấy theo chứng từ
+                if (sohd != "")
+                {
+                    sqlThuoc = "SELECT ct.mabn, ct.makh, ct.sohd, to_char(ct.ngayhd,'DD/MM/YYYY') AS ngayhd,";
+                    sqlThuoc += " xn.mahh, dm.tenhh, dm.dvt, xn.soluong, ct.loaixn, ct.khochan, ct.khole, ct.noitru,";
+                    sqlThuoc += " ct.madv,ct.maphong, COALESCE(ct.maba,'') AS maba, ct.bant, ct.thangkt, ct.namkt";
+                    sqlThuoc += " FROM current.chungtu ct LEFT JOIN";
+                    sqlThuoc += " current.pshdxn xn ON xn.sohd = ct.sohd LEFT JOIN";
+                    sqlThuoc += " current.dmthuoc dm ON dm.mahh = xn.mahh";
+                    sqlThuoc += " WHERE ct.sohd = '" + sohd + "'";
+                    sqlThuoc += " AND xn.xoa = 0";
+                    sqlThuoc += " AND ct.xoa = 0";
+                    sqlThuoc += " ORDER BY ct.ngayhd, xn.stt ";
+                }
+
                 
+                dt = new DataTable("THUOC");
+                dt = access.GetDataTable(sqlThuoc);
 
+                this.gridControl_thuoc.DataSource = dt;                
+
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ResetAll();
             }
 
-            dt = new DataTable("THUOC");
-            dt = access.GetDataTable(sqlThuoc);
-            this.gridControl_thuoc.DataSource = dt;
         }
 
         private void checkBox_benhnhan_CheckedChanged(object sender, EventArgs e)
         {
-            if (this.checkBox_benhnhan.Checked == true)
-            {
-                
-            }
-            else
+            if (this.checkBox_benhnhan.Checked == false)
             {
                 this.textEdit_Makb.Text = "";
                 this.groupControl_khambenh.Size = new Size(787, 115);
                 this.gridControl_khambenh.Visible = false;
-                SetTextBN("","","","","","","","","");
-                
-                this.groupControl_CLS.Size = new Size(1000,90);
+                SetTextBN("", "", "", "", "", "", "", "", "", "");
+
+                this.groupControl_CLS.Size = new Size(1000, 90);
                 this.gridControl_CLS.Visible = false;
                 this.checkBox_thuoc.Checked = false;
                 this.checkBox_CLS.Checked = false;
             }
+            
         }
 
         private void gridView_thuoc_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
@@ -611,7 +636,6 @@ namespace DHIssues.Frm
                         {
                             
                         }
-
                     }
 
                 }
@@ -637,12 +661,42 @@ namespace DHIssues.Frm
         {
             if (e.KeyCode == Keys.Enter)
             {
-                if (this.textEdit_sohd.Text.Trim() != "")
+                try
                 {
-                    this.groupControl_thuoc.Size = new Size(787, 195);
-                    this.gridControl_thuoc.Visible = true;
-                    LoadThuoc("","", this.textEdit_sohd.Text.Trim());
+                    if (this.textEdit_sohd.Text.Trim() != "")
+                    {
+                        this.groupControl_thuoc.Size = new Size(787, 195);
+                        this.gridControl_thuoc.Visible = true;
+                        LoadThuoc("", "", this.textEdit_sohd.Text.Trim());
 
+                        if (access.GetRowCellValue(this.gridView_thuoc, "mabn") != null)
+                        {
+                            if (access.GetRowCellValue(this.gridView_thuoc, "noitru") != null)
+                            {
+                                if (access.GetRowCellValue(this.gridView_thuoc, "noitru").ToString() == "1")
+                                {
+                                    LoadBN("", access.GetRowCellValue(this.gridView_thuoc, "mabn").ToString(), access.GetRowCellValue(this.gridView_thuoc, "makh").ToString(), "");
+                                }
+                                else
+                                {
+                                    if (access.GetRowCellValue(this.gridView_thuoc, "maba").ToString() != "" & access.GetRowCellValue(this.gridView_thuoc, "bant").ToString() == "0")
+                                    {
+                                        //MessageBox.Show(access.GetRowCellValue(this.gridView_thuoc, "maba").ToString());
+                                        LoadBN("", access.GetRowCellValue(this.gridView_thuoc, "mabn").ToString(), access.GetRowCellValue(this.gridView_thuoc, "makh").ToString(), "");
+                                    }
+                                    else
+                                    {
+                                        LoadBN(access.GetRowCellValue(this.gridView_thuoc, "makh").ToString(), access.GetRowCellValue(this.gridView_thuoc, "mabn").ToString(), "", access.GetRowCellValue(this.gridView_thuoc, "maphong").ToString());
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    ResetAll();
                 }
             }
         }
@@ -657,17 +711,15 @@ namespace DHIssues.Frm
                     this.groupControl_CLS.Size = new Size(787, 185);
                     this.gridControl_CLS.Visible = true;
                     //Load CLS
-                    LoadCLS(this.textEdit_Mabn.Text.Trim(),this.textEdit_Makb.Text.Trim(),"");
-                }
-                else
-                {
-                    
-                }
+                    LoadCLS(this.textEdit_Mabn.Text.Trim(),this.textEdit_Makb.Text.Trim(),"");                    
+                }                
             }
             else
             {
                 this.groupControl_CLS.Size = new Size(787, 90);
                 this.gridControl_CLS.Visible = false;
+                this.textEdit_macls.Text = "";
+                this.textEdit_phieuyc.Text = "";
             }
         }
 
@@ -679,7 +731,17 @@ namespace DHIssues.Frm
                 sqlCLS += " to_char(cd.ngaykcb, 'DD/MM/YYYY HH24:MI:SS') AS ngaykcd, cd.noitru";
                 sqlCLS += " FROM current.chidinhcls cd LEFT JOIN";
                 sqlCLS += " current.dmcls dm ON dm.macls = cd.macls";
-                sqlCLS += " WHERE cd.makb = '2410001574';";
+                sqlCLS += " WHERE cd.makb = '"+makb+"' AND cd.mabn = '"+mabn+"'";
+
+                dt = new DataTable("CLS");
+                dt = access.GetDataTable(sqlCLS);
+                this.gridControl_CLS.DataSource = dt;
+
+                if (this.gridView_CLS.RowCount > 0)
+                {
+                    this.gridView_CLS.FocusedRowHandle = 0;
+                }
+                                
             }catch(Exception ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -700,11 +762,16 @@ namespace DHIssues.Frm
 
         private void ResetAll()
         {
-            SetTextBN("", "", "", "", "", "", "", "", "");
+            SetTextBN("","", "", "", "", "", "", "", "", "");
             SetTextThuoc("", "", "", "", "", "", "");
             this.richTextBox_issuestring.Text = "";
             this.richTextBox_bosung.Text = "";
             this.textEdit_Makb.Text = "";
+            this.textEdit_macls.Text = "";
+            this.textEdit_phieuyc.Text = "";
+
+            this.checkBox_thuoc.Checked = false;
+            this.checkBox_CLS.Checked = false;
 
 
             this.groupControl_khambenh.Size = new Size(787, 120);
@@ -722,13 +789,7 @@ namespace DHIssues.Frm
             this.gridControl_khambenh.DataSource = null;
             this.gridControl_thuoc.DataSource = null;
             this.gridControl_CLS.DataSource = null;
-
             
-
-
-
-
-
         }
 
         private void gridView_CLS_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)

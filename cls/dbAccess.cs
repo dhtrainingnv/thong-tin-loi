@@ -68,51 +68,51 @@ namespace DHIssues.cls
             return value;
         }
 
-        public string StringIssues_BN(string mabn, string makb, string maba, string ngaykcb, string maphong, string madv, string thangkt, string namkt)
+        public string StringIssues_BN()
         {
             string Chitietloiphatsinh = "###### ![chi_tiet_loi](https://img.shields.io/badge/Chi%20tiết%20lỗi%20phát%20sinh-:-blue?style=for-the-badge&logo=github)";
             string Chitietbenhnhan = "-  ![loi_benh_nhan](https://img.shields.io/badge/Chi%20tiết%20bệnh%20nhân-:-blue?style=plastic&logo=github)";
-            string strBN = "> _**MaBN**_: `" + mabn + "` -";
-                    strBN += "_**MaKB**_: `"+makb+ "` - ";
-                    strBN += "_**MaBA**_: `" + maba + "` - ";
-                    strBN += "_**NgayKCB**_: `" + ngaykcb + "` - ";
-                    strBN += "_**MaPhong**_: `" + maphong + "` - ";
-                    strBN += "_**MaDV**_: `" + madv + "` - ";
-                    strBN += "_**ThangKT**_: `" + thangkt + "` - ";
-                    strBN += "_**NamKT**_: `" + namkt + "`";
+            string strBN = "> _**MaBN**_: `" + Mabn + "` -";
+                    strBN += "_**MaKB**_: `"+Makb+ "` - ";
+                    strBN += "_**MaBA**_: `" + Maba + "` - ";
+                    strBN += "_**NgayKCB**_: `" + Ngaykcb + "` - ";
+                    strBN += "_**MaPhong**_: `" + Maphong + "` - ";
+                    strBN += "_**MaDV**_: `" + Madv + "` - ";
+                    strBN += "_**ThangKT**_: `" + Thangkt + "` - ";
+                    strBN += "_**NamKT**_: `" + Namkt + "`";
 
             return Chitietloiphatsinh + "\n\n" + Chitietbenhnhan + "\n" + strBN;
         }
 
-        public string StringIssues_Thuoc(string khochan, string khole, string mahh, string sohd, string ngayhd, string thangkt, string namkt)
+        public string StringIssues_Thuoc()
         {
             string Chitietthuoc = "\n-  ![loi_thuoc](https://img.shields.io/badge/Chi%20tiết%20thuốc-:-blue?style=plastic&logo=github) \n";
 
-            string strThuoc = "> _**KhoChan**_: `"+khochan+"` - ";
-            strThuoc += "_**KhoLe**_: `" + khole + "` - ";
-            strThuoc += "_**MaHH**_: `" + mahh + "` - ";
-            strThuoc += "_**SoHD**_: `" + sohd + "` - ";
-            strThuoc += "_*NgayHD**_: `" + ngayhd + "` - ";
-            strThuoc += "_**ThangKT**_: `" + thangkt + "` - ";
-            strThuoc += "_**NamKT**_: `" + namkt + "`";           
+            string strThuoc = "> _**KhoChan**_: `"+Khochan+"` - ";
+            strThuoc += "_**KhoLe**_: `" + Khole + "` - ";
+            strThuoc += "_**MaHH**_: `" + Mahh + "` - ";
+            strThuoc += "_**SoHD**_: `" + Sohd + "` - ";
+            strThuoc += "_*NgayHD**_: `" + Ngayhd + "` - ";
+            strThuoc += "_**ThangKT**_: `" + T_thangkt + "` - ";
+            strThuoc += "_**NamKT**_: `" + T_namkt + "`";           
 
             return Chitietthuoc + "\n" + strThuoc;
         }
 
-        public string StringIssues_CLS(string macls, string PhieuYC)
+        public string StringIssues_CLS()
         {
             string ChitietCLS = "\n- ![loi_cls](https://img.shields.io/badge/Chi%20tiết%20CLS-:-blue?style=plastic&logo=github) \n";
 
-            string strCLS = "> _**MaCLS**_: `MaCLS` - ";
-                    strCLS += "_**PhieuYC**_: `PhieuYC`";
+            string strCLS = "> _**MaCLS**_: `"+Macls+"` - ";
+                    strCLS += "_**PhieuYC**_: `"+ Phieuyc + "`";
             return ChitietCLS + "\n" + strCLS;
         }
 
-        public string StringIssues_Khac(string bosung)
+        public string StringIssues_Khac()
         {
-            string Chitietbosung = "\n-  ![loi_bo_sung](https://img.shields.io/badge/Chi%20tiết%20bổ%20sung-:-blue?style=plastic&logo=github)\n";
+            string Chitietbosung = " \n-  ![loi_bo_sung](https://img.shields.io/badge/Chi%20tiết%20bổ%20sung-:-blue?style=plastic&logo=github)\n";
 
-            string strKhac = "> _**Khac**_: `"+ bosung + "`";
+            string strKhac = "> _**Khac**_: `"+ Khac + "`";
             
             return Chitietbosung + "\n" + strKhac;
         }

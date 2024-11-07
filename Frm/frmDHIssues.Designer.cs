@@ -431,6 +431,7 @@
             this.textEdit_bant.Properties.ReadOnly = true;
             this.textEdit_bant.Size = new System.Drawing.Size(76, 22);
             this.textEdit_bant.TabIndex = 0;
+            this.textEdit_bant.Visible = false;
             // 
             // textEdit_namkt
             // 
@@ -476,6 +477,7 @@
             this.gridView_thuoc.GridControl = this.gridControl_thuoc;
             this.gridView_thuoc.Name = "gridView_thuoc";
             this.gridView_thuoc.OptionsBehavior.Editable = false;
+            this.gridView_thuoc.OptionsView.ShowAutoFilterRow = true;
             this.gridView_thuoc.OptionsView.ShowGroupPanel = false;
             this.gridView_thuoc.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gridView_thuoc_FocusedRowChanged);
             // 
@@ -659,7 +661,7 @@
             this.textEdit_sohd.EditValue = "";
             this.textEdit_sohd.Location = new System.Drawing.Point(76, 61);
             this.textEdit_sohd.Name = "textEdit_sohd";
-            this.textEdit_sohd.Properties.Appearance.BackColor = System.Drawing.Color.White;
+            this.textEdit_sohd.Properties.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.textEdit_sohd.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEdit_sohd.Properties.Appearance.Options.UseBackColor = true;
             this.textEdit_sohd.Properties.Appearance.Options.UseFont = true;
@@ -750,7 +752,7 @@
             this.groupControl_CLS.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl_CLS.Location = new System.Drawing.Point(0, 449);
             this.groupControl_CLS.Name = "groupControl_CLS";
-            this.groupControl_CLS.Size = new System.Drawing.Size(984, 170);
+            this.groupControl_CLS.Size = new System.Drawing.Size(984, 185);
             this.groupControl_CLS.TabIndex = 2;
             this.groupControl_CLS.Text = "Chi tiết CLS :";
             // 
@@ -761,7 +763,7 @@
             this.gridControl_CLS.MainView = this.gridView_CLS;
             this.gridControl_CLS.MenuManager = this.barManager1;
             this.gridControl_CLS.Name = "gridControl_CLS";
-            this.gridControl_CLS.Size = new System.Drawing.Size(980, 86);
+            this.gridControl_CLS.Size = new System.Drawing.Size(980, 101);
             this.gridControl_CLS.TabIndex = 4;
             this.gridControl_CLS.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView_CLS});
@@ -770,6 +772,8 @@
             // 
             this.gridView_CLS.GridControl = this.gridControl_CLS;
             this.gridView_CLS.Name = "gridView_CLS";
+            this.gridView_CLS.OptionsBehavior.Editable = false;
+            this.gridView_CLS.OptionsView.ShowAutoFilterRow = true;
             this.gridView_CLS.OptionsView.ShowGroupPanel = false;
             this.gridView_CLS.FocusedRowChanged += new DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventHandler(this.gridView_CLS_FocusedRowChanged);
             // 
@@ -854,7 +858,7 @@
             this.groupControl4.Controls.Add(this.richTextBox_bosung);
             this.groupControl4.Controls.Add(this.labelControl17);
             this.groupControl4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControl4.Location = new System.Drawing.Point(0, 619);
+            this.groupControl4.Location = new System.Drawing.Point(0, 634);
             this.groupControl4.Name = "groupControl4";
             this.groupControl4.Size = new System.Drawing.Size(984, 110);
             this.groupControl4.TabIndex = 3;
@@ -887,7 +891,7 @@
             this.panelControl1.Controls.Add(this.panelControl5);
             this.panelControl1.Controls.Add(this.dropDownButton_Tao);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelControl1.Location = new System.Drawing.Point(0, 729);
+            this.panelControl1.Location = new System.Drawing.Point(0, 744);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(984, 36);
             this.panelControl1.TabIndex = 4;
@@ -939,9 +943,9 @@
             // 
             this.richTextBox_issuestring.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBox_issuestring.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox_issuestring.Location = new System.Drawing.Point(0, 765);
+            this.richTextBox_issuestring.Location = new System.Drawing.Point(0, 780);
             this.richTextBox_issuestring.Name = "richTextBox_issuestring";
-            this.richTextBox_issuestring.Size = new System.Drawing.Size(984, 196);
+            this.richTextBox_issuestring.Size = new System.Drawing.Size(984, 181);
             this.richTextBox_issuestring.TabIndex = 9;
             this.richTextBox_issuestring.Text = "";
             // 
@@ -961,7 +965,6 @@
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximumSize = new System.Drawing.Size(1000, 1000);
             this.MinimumSize = new System.Drawing.Size(1000, 1000);
             this.Name = "frmDHIssues";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
